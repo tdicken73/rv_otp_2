@@ -1,4 +1,4 @@
-# Groxio OTP abd Elixir Training
+# Groxio OTP and Elixir Training
 
 Groxio training
 
