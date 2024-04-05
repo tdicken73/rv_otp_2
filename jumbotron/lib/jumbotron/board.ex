@@ -11,5 +11,7 @@ defmodule Jumbotron.Board do
 
   def show(board) do
     board
+    |> Enum.map(fn {score, player} -> "#{player}: #{score}" end)
+    |> Enum.join("\n")
   end
 end

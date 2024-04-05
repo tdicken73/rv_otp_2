@@ -17,6 +17,7 @@ defmodule Jumbotron.Service do
     receive do
       m -> m
     end
+    |> IO.puts()
   end
 
 
@@ -31,7 +32,7 @@ defmodule Jumbotron.Service do
   defp listen(arcade) do
     receive do
       {:add, game, score, player} ->
-        Arcade.add_score(arcade, game, {score, player})
+        Arcade.add_score(arcade, game, {score, player}) #
 
       {:show, game, from_pid} ->
         send(from_pid, Arcade.show(arcade, game))
