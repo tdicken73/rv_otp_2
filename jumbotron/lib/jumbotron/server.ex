@@ -1,6 +1,6 @@
 defmodule Jumbotron.Server do
   use GenServer
-alias Jumbotron.Arcade
+  alias Jumbotron.Arcade
   # Callbacks
 
   def start_link(games) do
@@ -11,6 +11,15 @@ alias Jumbotron.Arcade
     GenServer.cast(pid, {:add, game, score, player})
   end
 
+  def as_list(pid \\ :arcade, game) do
+    GenServer.call(pid, {:as_list, game})
+  end
+
+  def show(pid \\ :arcade, game) do
+    GenServer.call(pid, {:show, game})
+    |> IO.puts()
+  end
+
   @impl true
   def init(games) do
     initial_state = Arcade.new(games)
@@ -19,8 +28,12 @@ alias Jumbotron.Arcade
 
   @impl true
   def handle_call({:show, game}, _from, arcade) do
-
     {:reply, Arcade.show(arcade, game), arcade}
+  end
+
+  @impl true
+  def handle_call({:as_list, game}, _from, arcade) do
+    {:reply, Arcade.as_list(arcade, game), arcade}
   end
 
   @impl true
@@ -28,5 +41,4 @@ alias Jumbotron.Arcade
     new_arcade = Arcade.add_score(arcade, game, {score, player})
     {:noreply, new_arcade}
   end
-
 end
