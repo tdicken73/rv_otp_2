@@ -17,8 +17,7 @@ defmodule DoubleTake.Application do
       # Start a worker by calling: DoubleTake.Worker.start_link(arg)
       # {DoubleTake.Worker, arg},
       # Start to serve requests, typically the last entry
-      DoubleTakeWeb.Endpoint,
-      Jumbotron.Server
+      DoubleTakeWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
