@@ -18,6 +18,7 @@ defmodule DoubleTakeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    live "/scores/:game", JumbotronLive
   end
 
   # Other scopes may use custom stacks.

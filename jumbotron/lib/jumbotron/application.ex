@@ -11,7 +11,7 @@ defmodule Jumbotron.Application do
     children = [
       # Starts a worker by calling: Jumbotron.Worker.start_link(arg)
       # {Jumbotron.Worker, arg}
-      {Server, ~w[frogger pong tetris]}
+      Server
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
