@@ -4,12 +4,14 @@ defmodule Jumbotron.Application do
   @moduledoc false
 
   use Application
+  alias Jumbotron.Server
 
   @impl true
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Jumbotron.Worker.start_link(arg)
       # {Jumbotron.Worker, arg}
+      {Server, ~w[frogger pong tetris]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
