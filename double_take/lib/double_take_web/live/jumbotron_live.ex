@@ -1,5 +1,4 @@
 defmodule DoubleTakeWeb.JumbotronLive do
-  alias ElixirSense.Plugins.Phoenix
   use DoubleTakeWeb, :live_view
   alias DoubleTake.Scores
 
