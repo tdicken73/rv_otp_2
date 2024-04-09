@@ -23,6 +23,7 @@ defmodule DoubleTakeWeb.Router do
     get("/", PageController, :home)
     live("/scores/:game", JumbotronLive)
     live("/choose", PickerLive)
+    live("/play/:quotation_id", EraserLive)
   end
 
   # Other scopes may use custom stacks.
