@@ -21,6 +21,17 @@ defmodule DoubleTake.Library do
     Repo.all(Quotation)
   end
 
+  def first_quotation do
+    from(q in Quotation, limit: 1, order_by: [asc: :id])
+    |> Repo.one()
+  end
+
+  def next_quotation(quotation) do
+    from(q in Quotation, limit: 1, order_by: [asc: :id], where: q.id > ^quotation.id)
+    |> Repo.one()
+    |> Kernel.||(first_quotation())
+  end
+
   @doc """
   Gets a single quotation.
 
