@@ -1,0 +1,43 @@
+<.header>
+  Listing Quotations
+  <:actions>
+    <.link patch={~p"/quotations/new"}>
+      <.button>New Quotation</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="quotations"
+  rows={@streams.quotations}
+  row_click={fn {_id, quotation} -> JS.navigate(~p"/quotations/#{quotation}") end}
+>
+  <:col :let={{_id, quotation}} label="Name"><%= quotation.name %></:col>
+  <:col :let={{_id, quotation}} label="Steps"><%= quotation.steps %></:col>
+  <:col :let={{_id, quotation}} label="Text"><%= quotation.text %></:col>
+  <:action :let={{_id, quotation}}>
+    <div class="sr-only">
+      <.link navigate={~p"/quotations/#{quotation}"}>Show</.link>
+    </div>
+    <.link patch={~p"/quotations/#{quotation}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, quotation}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: quotation.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="quotation-modal" show on_cancel={JS.patch(~p"/quotations")}>
+  <.live_component
+    module={DoubleTakeWeb.QuotationLive.FormComponent}
+    id={@quotation.id || :new}
+    title={@page_title}
+    action={@live_action}
+    quotation={@quotation}
+    patch={~p"/quotations"}
+  />
+</.modal>

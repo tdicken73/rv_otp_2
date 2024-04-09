@@ -1,0 +1,28 @@
+<.header>
+  Quotation <%= @quotation.id %>
+  <:subtitle>This is a quotation record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/quotations/#{@quotation}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit quotation</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @quotation.name %></:item>
+  <:item title="Steps"><%= @quotation.steps %></:item>
+  <:item title="Text"><%= @quotation.text %></:item>
+</.list>
+
+<.back navigate={~p"/quotations"}>Back to quotations</.back>
+
+<.modal :if={@live_action == :edit} id="quotation-modal" show on_cancel={JS.patch(~p"/quotations/#{@quotation}")}>
+  <.live_component
+    module={DoubleTakeWeb.QuotationLive.FormComponent}
+    id={@quotation.id}
+    title={@page_title}
+    action={@live_action}
+    quotation={@quotation}
+    patch={~p"/quotations/#{@quotation}"}
+  />
+</.modal>
