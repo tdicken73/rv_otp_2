@@ -10,6 +10,7 @@ defmodule DoubleTake.Scores do
 
   def high_scores(game) do
     Jumbotron.as_list(game)
+    || []
   end
 
   def topic_name(game) do
