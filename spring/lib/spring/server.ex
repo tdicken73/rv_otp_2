@@ -9,7 +9,7 @@ defmodule Spring.Server do
   def show(pid \\ :spring) do
     GenServer.call(pid, :show)
     |> Enum.reduce(%{}, fn {location, state}, acc -> Map.put(acc, location, Spring.Cell.get_status(state)) end)
-    |> IO.puts()
+    |> IO.inspect()
   end
 
   def evolve(pid \\ :spring) do
