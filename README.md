@@ -2,6 +2,8 @@
 
 Groxio training
 
+Contributors: Em, Marcio, Andres
+
 ## 1 Install these tools, plus Elixir
 
 The tools you will need to install: 
