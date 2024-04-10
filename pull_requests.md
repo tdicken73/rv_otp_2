@@ -1,2 +1,3 @@
 - Bruce Tate
 - Drew Blake
+- Steven Price
