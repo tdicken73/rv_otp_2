@@ -7,20 +7,18 @@ defmodule Jumbotron.Service do
     spawn_link(fn -> loop(arcade) end)
   end
 
-
   def add(pid, game, score, player) do
     send(pid, {:add, game, score, player})
   end
 
   def show(pid, game) do
     send(pid, {:show, game, self()})
+
     receive do
       m -> m
     end
     |> IO.puts()
   end
-
-
 
   # server
   defp loop(arcade) do
@@ -32,12 +30,12 @@ defmodule Jumbotron.Service do
   defp listen(arcade) do
     receive do
       {:add, game, score, player} ->
-        Arcade.add_score(arcade, game, {score, player}) #
+        #
+        Arcade.add_score(arcade, game, {score, player})
 
       {:show, game, from_pid} ->
         send(from_pid, Arcade.show(arcade, game))
         arcade
     end
-
   end
 end
