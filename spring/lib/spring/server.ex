@@ -3,33 +3,24 @@ defmodule Spring.Server do
   alias Spring.Grid
 
   def start_link(grid) do
-    GenServer.start_link(Spring.Server, grid, name: :grid)
+    GenServer.start_link(Spring.Server, grid, name: :spring)
   end
 
-  def show(grid) do
-    grid_str =
-      1..20
-      |> Enum.map(fn r ->
-        1..20
-        |> Enum.map(fn c ->
-          Spring.Cell.get_status(Map.get(grid, {r, c}, false))
-        end)
-        |> Enum.join(" ")
-      end)
-      |> Enum.join("\n")
-
-    IO.puts grid_str
+  def show(pid \\ :spring) do
+    GenServer.call(pid, :show)
+    |> Enum.reduce(%{}, fn {location, state}, acc -> Map.put(acc, location, Spring.Cell.get_status(state)) end)
+    |> IO.puts()
   end
 
-  def evolve() do
-    GenServer.cast(:evolve)
+  def evolve(pid \\ :spring) do
+    GenServer.cast(pid, :evolve)
   end
 
 # Server
 
 @impl true
-def init(grid) do
-  {:ok, grid}
+def init(_) do
+  {:ok, Grid.new}
 end
 
 @impl true
