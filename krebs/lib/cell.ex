@@ -6,19 +6,17 @@ defmodule Krebs.Cell do
    - Show the cell with a string representation
 
   """
-  @type cell boolean
 
-  def next_gen(_cell, neighbor_count) when neighbor_count === 3 do
-    show(true)
-  end
 
-  def next_gen(cell, neighbor_count) when neighbor_count === 2 do
-    show(cell)
-  end
+  @doc """
+  Given a cell and the number of living neigbhors, determine its next state
+  """
+  @spec next_gen([boolean()], boolean()) :: boolean()
+  def next_gen(living_neighbors, _cell) when living_neighbors === 3, do: true
 
-  def next_gen(_cell, _neighbor_count) do
-    show(false)
-  end
+  def next_gen(living_neighbors, cell) when living_neighbors === 2, do: cell
+
+  def next_gen(_living_neighbors, _cell), do: false
 
   def show(true) do
     ~s/😐/
